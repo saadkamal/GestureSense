@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GestureSense is an open-source browser demo for real-time hand gestures and facial-expression detection." />
+  <meta name="author" content="Saad Kamal" />
+  <title>GestureSense — Gesture & Expression Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!--
+    GestureSense
+    Created and maintained by Saad Kamal.
+
+    The DOM is intentionally simple: the ML pipeline lives in js/app.js, while
+    this file defines stable HUD regions that can be updated without layout
+    jumping as hands and faces enter or leave the frame.
+  -->
+  <div id="app">
+    <!-- Start screen -->
+    <div id="start-screen" class="screen active">
+      <div class="start-bg"></div>
+      <div class="start-content">
+        <div class="logo-ring">
+          <svg viewBox="0 0 120 120" class="logo-icon">
+            <circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+            <path d="M60 30 L60 50 M45 38 L60 50 L75 38 M50 65 L45 85 M60 62 L60 88 M70 65 L75 85" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+        <h1>Gesture<span>Sense</span></h1>
+        <p class="tagline">Real-time hand tracking &amp; facial expressions</p>
+        <button id="start-btn" class="btn-primary">
+          <span class="btn-glow"></span>
+          <span class="btn-text">Enable Camera</span>
+        </button>
+        <p class="hint">Requires webcam access · Works best in Chrome, Safari, or Firefox</p>
+        <p id="browser-hint" class="hint browser-warn hidden">Cursor's built-in browser has limited webcam support — open in an external browser for best results.</p>
+      </div>
+    </div>
+
+    <!-- Main tracking view -->
+    <div id="tracking-screen" class="screen">
+      <video id="webcam" autoplay playsinline muted hidden></video>
+      <canvas id="view"></canvas>
+      <canvas id="overlay"></canvas>
+      <div class="scanlines" aria-hidden="true"></div>
+
+      <!-- HUD -->
+      <div class="hud">
+        <div class="hud-corner hud-tl"></div>
+        <div class="hud-corner hud-tr"></div>
+        <div class="hud-corner hud-bl"></div>
+        <div class="hud-corner hud-br"></div>
+
+        <header class="hud-header">
+          <div class="hud-brand">
+            <span class="pulse-dot"></span>
+            GestureSense
+          </div>
+          <div class="hud-status">
+            <span id="fps">— FPS</span>
+            <span class="divider">|</span>
+            <span id="hand-count">0 hands</span>
+            <span class="divider">|</span>
+            <span id="detect-count">— det</span>
+            <span class="divider">|</span>
+            <span id="stream-status" class="stream-ok">—</span>
+          </div>
+        </header>
+
+        <div id="expression-panel" class="expression-panel hidden">
+          <span id="expression-emoji" class="expression-emoji">😐</span>
+          <div class="expression-info">
+            <span id="expression-label" class="expression-label">Neutral</span>
+            <span id="expression-confidence" class="expression-confidence">—</span>
+          </div>
+        </div>
+
+        <div id="hand-panels" class="hand-panels">
+          <div class="hand-panel left-hand inactive" data-hand-slot="A">
+            <div class="hand-panel-title">Hand A · Left</div>
+            <div class="signal-badge static">No hand detected</div>
+            <div class="finger-list">
+              <div class="finger-row" data-finger="thumb"><span class="finger-name">Thumb</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="index"><span class="finger-name">Index</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="middle"><span class="finger-name">Middle</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="ring"><span class="finger-name">Ring</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="pinky"><span class="finger-name">Pinky</span><span class="finger-status down">Closed</span></div>
+            </div>
+          </div>
+          <div class="hand-panel right-hand inactive" data-hand-slot="B">
+            <div class="hand-panel-title">Hand B · Right</div>
+            <div class="signal-badge static">No hand detected</div>
+            <div class="finger-list">
+              <div class="finger-row" data-finger="thumb"><span class="finger-name">Thumb</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="index"><span class="finger-name">Index</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="middle"><span class="finger-name">Middle</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="ring"><span class="finger-name">Ring</span><span class="finger-status down">Closed</span></div>
+              <div class="finger-row" data-finger="pinky"><span class="finger-name">Pinky</span><span class="finger-status down">Closed</span></div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="hud-footer">
+          <span id="gesture-label">Raise a hand to begin</span>
+        </footer>
+      </div>
+
+      <!-- Loading overlay -->
+      <div id="loading" class="loading hidden">
+        <div class="loading-spinner"></div>
+        <p>Initializing tracking models…</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js?v=42"></script>
+</body>
+</html>

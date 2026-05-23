@@ -6,6 +6,14 @@ It uses the webcam, MediaPipe Tasks Vision, and HTML canvas overlays to create a
 
 Created and maintained by **Saad Kamal**.
 
+## Live Demo
+
+Try GestureSense in your browser:
+
+**https://gesturesense-production.up.railway.app/**
+
+Click **Enable Camera** and allow webcam access to test hand tracking, gesture detection, and facial-expression detection.
+
 ## Features
 
 - Real-time webcam preview with a full-screen mirrored canvas view

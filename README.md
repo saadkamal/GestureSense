@@ -1,8 +1,8 @@
 # GestureSense
 
-**GestureSense** is a browser-based computer-vision demo for real-time hand tracking, gesture recognition, and facial-expression detection.
+**GestureSense** is a browser-based computer-vision demo for real-time **per-finger hand tracking**, gesture recognition, and facial-expression detection.
 
-It uses the webcam, MediaPipe Tasks Vision, and HTML canvas overlays to create a polished gesture-control prototype that can recognize hands, fingers, common hand signals, motion gestures, and facial expressions directly in the browser.
+Raise one or both hands in front of your webcam and see **each finger detected individually** — thumb, index, middle, ring, and pinky — with live open/closed status on the HUD and color-coded skeleton overlays. GestureSense also recognizes common hand signals, motion gestures, and facial expressions, all running in the browser via MediaPipe Tasks Vision.
 
 Created and maintained by **Saad Kamal**.
 
@@ -12,13 +12,31 @@ Try GestureSense in your browser:
 
 **https://gesturesense-production.up.railway.app/**
 
-Click **Enable Camera** and allow webcam access to test hand tracking, gesture detection, and facial-expression detection.
+Click **Enable Camera** and allow webcam access. Raise your hand(s) and watch each finger update in real time.
+
+## Individual Finger Detection
+
+GestureSense tracks **all five fingers on each hand** separately:
+
+| Finger | What you see |
+|--------|----------------|
+| **Thumb** | Extended or tucked (works from front and side views) |
+| **Index** | Raised or closed |
+| **Middle** | Raised or closed |
+| **Ring** | Raised or closed |
+| **Pinky** | Raised or closed |
+
+- **Two hands** — Hand A and Hand B panels stay on screen with per-finger rows
+- **Visual overlay** — Landmarks and finger segments highlight on the video feed
+- **Stable HUD** — Finger labels stay fixed; only the status text changes (e.g. `Up` / `Closed`)
+
+This is the core of the demo: proof that gesture-control input can be built finger-by-finger, not just as a single “hand present” blob.
 
 ## Features
 
 - Real-time webcam preview with a full-screen mirrored canvas view
 - Two-hand tracking with persistent Hand A / Hand B HUD panels
-- Per-finger state detection for thumb, index, middle, ring, and pinky
+- **Per-finger detection:** thumb, index, middle, ring, and pinky (open/closed per hand)
 - Hand signals:
   - Open palm
   - Stop / high five
